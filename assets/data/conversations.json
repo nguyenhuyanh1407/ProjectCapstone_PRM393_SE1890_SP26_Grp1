@@ -1,0 +1,50 @@
+[
+  {
+    "id": "c1",
+    "travelerId": "u1",
+    "guideId": "u4",
+    "travelerName": "Liam Carter",
+    "guideName": "Minh Tran",
+    "travelerAvatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200",
+    "guideAvatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200",
+    "lastMessage": "I will send the pickup point 30 minutes before departure.",
+    "lastMessageTime": "2026-03-17T09:20:00",
+    "unreadCount": 2
+  },
+  {
+    "id": "c2",
+    "travelerId": "u2",
+    "guideId": "u5",
+    "travelerName": "Emma Wilson",
+    "guideName": "Lan Pham",
+    "travelerAvatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200",
+    "guideAvatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200",
+    "lastMessage": "Your meal preference has been noted.",
+    "lastMessageTime": "2026-03-17T08:45:00",
+    "unreadCount": 0
+  },
+  {
+    "id": "c3",
+    "travelerId": "u3",
+    "guideId": "u4",
+    "travelerName": "Noah Nguyen",
+    "guideName": "Minh Tran",
+    "travelerAvatar": "https://images.unsplash.com/photo-1504593811423-6dd665756598?w=200",
+    "guideAvatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200",
+    "lastMessage": "Bring a light jacket for the evening cruise.",
+    "lastMessageTime": "2026-03-16T20:10:00",
+    "unreadCount": 1
+  },
+  {
+    "id": "c4",
+    "travelerId": "u7",
+    "guideId": "u5",
+    "travelerName": "Sophie Le",
+    "guideName": "Lan Pham",
+    "travelerAvatar": "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200",
+    "guideAvatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200",
+    "lastMessage": "See you at the hotel lobby at 7 AM tomorrow.",
+    "lastMessageTime": "2026-03-16T18:30:00",
+    "unreadCount": 0
+  }
+]

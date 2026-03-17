@@ -1,0 +1,57 @@
+[
+  {
+    "id": "r1",
+    "reporterId": "u1",
+    "reportedUserId": "u5",
+    "reporterName": "Liam Carter",
+    "reportedUserName": "Lan Pham",
+    "reason": "Inappropriate language",
+    "status": "Pending",
+    "createdAt": "2026-03-15T10:30:00",
+    "messagePreview": "The guide replied with a rude tone during our support chat."
+  },
+  {
+    "id": "r2",
+    "reporterId": "u2",
+    "reportedUserId": "u3",
+    "reporterName": "Emma Wilson",
+    "reportedUserName": "Noah Nguyen",
+    "reason": "Spam message",
+    "status": "Reviewed",
+    "createdAt": "2026-03-14T14:10:00",
+    "messagePreview": "This account kept sending unrelated promotional content in chat."
+  },
+  {
+    "id": "r3",
+    "reporterId": "u7",
+    "reportedUserId": "u4",
+    "reporterName": "Sophie Le",
+    "reportedUserName": "Minh Tran",
+    "reason": "Late response",
+    "status": "Pending",
+    "createdAt": "2026-03-16T08:20:00",
+    "messagePreview": "I had to wait several hours before receiving pickup details."
+  },
+  {
+    "id": "r4",
+    "reporterId": "u3",
+    "reportedUserId": "u7",
+    "reporterName": "Noah Nguyen",
+    "reportedUserName": "Sophie Le",
+    "reason": "Abusive wording",
+    "status": "Resolved",
+    "createdAt": "2026-03-12T19:00:00",
+    "messagePreview": "The traveler used insulting words in a group coordination message."
+  },
+  {
+    "id": "r5",
+    "reporterId": "u4",
+    "reportedUserId": "u2",
+    "reporterName": "Minh Tran",
+    "reportedUserName": "Emma Wilson",
+    "reason": "Fake complaint",
+    "status": "Rejected",
+    "createdAt": "2026-03-13T11:45:00",
+    "messagePreview": "The issue reported could not be verified from the conversation history."
+  }
+]

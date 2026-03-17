@@ -109,7 +109,8 @@ class _EditTourPageState extends State<EditTourPage> {
       } else {
         await _dataService.updateTour(tour);
       }
-      
+
+      if (!mounted) return;
       Navigator.pop(context);
     }
   }

@@ -1,0 +1,200 @@
+[
+  {
+    "id": "m1",
+    "conversationId": "c1",
+    "senderId": "u1",
+    "senderRole": "traveler",
+    "content": "Hi Minh, what time should I be ready tomorrow?",
+    "sentAt": "2026-03-17T08:40:00",
+    "isRead": true,
+    "isMine": true,
+    "type": "text"
+  },
+  {
+    "id": "m2",
+    "conversationId": "c1",
+    "senderId": "u4",
+    "senderRole": "guide",
+    "content": "Good morning Liam. Please be ready by 7:30 AM.",
+    "sentAt": "2026-03-17T08:45:00",
+    "isRead": true,
+    "isMine": false,
+    "type": "text"
+  },
+  {
+    "id": "m3",
+    "conversationId": "c1",
+    "senderId": "u1",
+    "senderRole": "traveler",
+    "content": "Perfect. Will pickup be at the hotel entrance?",
+    "sentAt": "2026-03-17T09:00:00",
+    "isRead": true,
+    "isMine": true,
+    "type": "text"
+  },
+  {
+    "id": "m4",
+    "conversationId": "c1",
+    "senderId": "u4",
+    "senderRole": "guide",
+    "content": "I will send the pickup point 30 minutes before departure.",
+    "sentAt": "2026-03-17T09:20:00",
+    "isRead": false,
+    "isMine": false,
+    "type": "text"
+  },
+  {
+    "id": "m5",
+    "conversationId": "c2",
+    "senderId": "u2",
+    "senderRole": "traveler",
+    "content": "Hello Lan, can I request vegetarian meals for this tour?",
+    "sentAt": "2026-03-17T07:55:00",
+    "isRead": true,
+    "isMine": true,
+    "type": "text"
+  },
+  {
+    "id": "m6",
+    "conversationId": "c2",
+    "senderId": "u5",
+    "senderRole": "guide",
+    "content": "Yes, absolutely. I can update that for you.",
+    "sentAt": "2026-03-17T08:10:00",
+    "isRead": true,
+    "isMine": false,
+    "type": "text"
+  },
+  {
+    "id": "m7",
+    "conversationId": "c2",
+    "senderId": "u5",
+    "senderRole": "guide",
+    "content": "Your meal preference has been noted.",
+    "sentAt": "2026-03-17T08:45:00",
+    "isRead": true,
+    "isMine": false,
+    "type": "text"
+  },
+  {
+    "id": "m8",
+    "conversationId": "c3",
+    "senderId": "u3",
+    "senderRole": "traveler",
+    "content": "Do we need formal clothes for the cruise dinner?",
+    "sentAt": "2026-03-16T19:15:00",
+    "isRead": true,
+    "isMine": true,
+    "type": "text"
+  },
+  {
+    "id": "m9",
+    "conversationId": "c3",
+    "senderId": "u4",
+    "senderRole": "guide",
+    "content": "Smart casual is enough. No need for formal wear.",
+    "sentAt": "2026-03-16T19:28:00",
+    "isRead": true,
+    "isMine": false,
+    "type": "text"
+  },
+  {
+    "id": "m10",
+    "conversationId": "c3",
+    "senderId": "u4",
+    "senderRole": "guide",
+    "content": "Bring a light jacket for the evening cruise.",
+    "sentAt": "2026-03-16T20:10:00",
+    "isRead": false,
+    "isMine": false,
+    "type": "text"
+  },
+  {
+    "id": "m11",
+    "conversationId": "c4",
+    "senderId": "u7",
+    "senderRole": "traveler",
+    "content": "Hi Lan, is there a dress code for the temple visit?",
+    "sentAt": "2026-03-16T17:50:00",
+    "isRead": true,
+    "isMine": true,
+    "type": "text"
+  },
+  {
+    "id": "m12",
+    "conversationId": "c4",
+    "senderId": "u5",
+    "senderRole": "guide",
+    "content": "Please wear clothes that cover shoulders and knees.",
+    "sentAt": "2026-03-16T18:05:00",
+    "isRead": true,
+    "isMine": false,
+    "type": "text"
+  },
+  {
+    "id": "m13",
+    "conversationId": "c4",
+    "senderId": "u7",
+    "senderRole": "traveler",
+    "content": "Thanks. Is breakfast included before departure?",
+    "sentAt": "2026-03-16T18:15:00",
+    "isRead": true,
+    "isMine": true,
+    "type": "text"
+  },
+  {
+    "id": "m14",
+    "conversationId": "c4",
+    "senderId": "u5",
+    "senderRole": "guide",
+    "content": "Yes, hotel breakfast starts at 6 AM.",
+    "sentAt": "2026-03-16T18:22:00",
+    "isRead": true,
+    "isMine": false,
+    "type": "text"
+  },
+  {
+    "id": "m15",
+    "conversationId": "c4",
+    "senderId": "u5",
+    "senderRole": "guide",
+    "content": "See you at the hotel lobby at 7 AM tomorrow.",
+    "sentAt": "2026-03-16T18:30:00",
+    "isRead": true,
+    "isMine": false,
+    "type": "text"
+  },
+  {
+    "id": "m16",
+    "conversationId": "c2",
+    "senderId": "u2",
+    "senderRole": "traveler",
+    "content": "Great, thank you for the quick support.",
+    "sentAt": "2026-03-17T08:50:00",
+    "isRead": true,
+    "isMine": true,
+    "type": "text"
+  },
+  {
+    "id": "m17",
+    "conversationId": "c3",
+    "senderId": "u3",
+    "senderRole": "traveler",
+    "content": "Understood. I will bring one.",
+    "sentAt": "2026-03-16T20:15:00",
+    "isRead": true,
+    "isMine": true,
+    "type": "text"
+  },
+  {
+    "id": "m18",
+    "conversationId": "c1",
+    "senderId": "u4",
+    "senderRole": "guide",
+    "content": "Also bring your booking QR code for check-in.",
+    "sentAt": "2026-03-17T09:25:00",
+    "isRead": false,
+    "isMine": false,
+    "type": "text"
+  }
+]

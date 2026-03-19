@@ -121,15 +121,39 @@ class AuthService {
   Future<AppUser?> getCurrentUserData() async {
     if (currentUser == null) return null;
 
-    DocumentSnapshot doc = await _firestore
-        .collection('users')
-        .doc(currentUser!.uid)
-        .get();
+    final docRef = _firestore.collection('users').doc(currentUser!.uid);
+    DocumentSnapshot doc = await docRef.get();
 
     if (doc.exists) {
       return AppUser.fromJson(doc.data() as Map<String, dynamic>);
     }
-    return null;
+
+    final appUser = AppUser(
+      id: currentUser!.uid,
+      fullName: currentUser!.displayName ?? '',
+      email: currentUser!.email ?? '',
+      role: UserRole.traveler,
+    );
+    await docRef.set(appUser.toJson());
+    return appUser;
+  }
+
+  Future<void> ensureCurrentUserDocument() async {
+    if (currentUser == null) return;
+
+    final docRef = _firestore.collection('users').doc(currentUser!.uid);
+    final doc = await docRef.get();
+
+    if (doc.exists) return;
+
+    final appUser = AppUser(
+      id: currentUser!.uid,
+      fullName: currentUser!.displayName ?? '',
+      email: currentUser!.email ?? '',
+      role: UserRole.traveler,
+    );
+
+    await docRef.set(appUser.toJson());
   }
 
   // ============================

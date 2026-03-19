@@ -1,1 +1,28 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"tourbookingapp-cf9d9","appId":"1:788224320201:android:af2ece6082e64962fda318","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"tourbookingapp-cf9d9","configurations":{"android":"1:788224320201:android:af2ece6082e64962fda318","ios":"1:788224320201:ios:28f8ab39c3acc31ffda318","macos":"1:788224320201:ios:28f8ab39c3acc31ffda318","web":"1:788224320201:web:7b51b8d8ababe3d6fda318","windows":"1:788224320201:web:dcb62cd76903bfa4fda318"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "tourbookingapp-cf9d9",
+          "appId": "1:788224320201:android:af2ece6082e64962fda318",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "tourbookingapp-cf9d9",
+          "configurations": {
+            "android": "1:788224320201:android:af2ece6082e64962fda318",
+            "ios": "1:788224320201:ios:28f8ab39c3acc31ffda318",
+            "macos": "1:788224320201:ios:28f8ab39c3acc31ffda318",
+            "web": "1:788224320201:web:7b51b8d8ababe3d6fda318",
+            "windows": "1:788224320201:web:dcb62cd76903bfa4fda318"
+          }
+        }
+      }
+    }
+  },
+  "firestore": {
+    "rules": "firestore.rules"
+  }
+}

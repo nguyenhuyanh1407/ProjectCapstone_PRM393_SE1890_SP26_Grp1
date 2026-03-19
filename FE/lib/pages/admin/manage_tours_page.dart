@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../models/tour.dart';
 import '../../services/mock_data_service.dart';
 import '../../utils/formatter.dart';
-import '../../constants/app_colors.dart';
 
 class ManageToursPage extends StatefulWidget {
   const ManageToursPage({super.key});
@@ -50,18 +49,30 @@ class _ManageToursPageState extends State<ManageToursPage> {
                   width: 50,
                   height: 50,
                   color: Colors.grey[300],
-                  child: const Icon(Icons.broken_image, size: 30, color: Colors.grey),
+                  child: const Icon(
+                    Icons.broken_image,
+                    size: 30,
+                    color: Colors.grey,
+                  ),
                 ),
               ),
             ),
 
             title: Text(tour.title),
-            subtitle: Text('${tour.location} - ${Formatter.formatCurrency(tour.basePrice)}'),
+            subtitle: Text(
+              '${tour.location} - ${Formatter.formatCurrency(tour.basePrice)}',
+            ),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                IconButton(icon: const Icon(Icons.edit, color: Colors.blue), onPressed: () => _navigateToEdit(tour)),
-                IconButton(icon: const Icon(Icons.delete, color: Colors.red), onPressed: () => _deleteTour(tour.id)),
+                IconButton(
+                  icon: const Icon(Icons.edit, color: Colors.blue),
+                  onPressed: () => _navigateToEdit(tour),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.delete, color: Colors.red),
+                  onPressed: () => _deleteTour(tour.id),
+                ),
               ],
             ),
           );
@@ -75,10 +86,12 @@ class _ManageToursPageState extends State<ManageToursPage> {
     _loadTours();
   }
 
-
   void _deleteTour(String id) async {
     await _dataService.deleteTour(id);
     _loadTours();
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Tour deleted')));
+    if (!mounted) return;
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('Tour deleted')));
   }
 }

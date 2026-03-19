@@ -13,6 +13,11 @@ import '../pages/guide/tour_schedule_page.dart';
 import '../pages/admin/admin_dashboard_page.dart';
 import '../pages/admin/manage_tours_page.dart';
 import '../pages/admin/edit_tour_page.dart';
+import '../pages/admin/manage_users_page.dart';
+import '../pages/chat/chat_detail_page.dart';
+import '../pages/chat/chat_list_page.dart';
+import '../models/user.dart';
+import '../widgets/role_guard.dart';
 
 class AppRoutes {
   // Auth routes
@@ -38,6 +43,11 @@ class AppRoutes {
   static const String adminDashboard = '/admin-dashboard';
   static const String manageTours = '/manage-tours';
   static const String editTour = '/edit-tour';
+  static const String manageUsers = '/manage-users';
+
+  // Chat routes
+  static const String chatList = '/chat-list';
+  static const String chatDetail = '/chat-detail';
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -57,13 +67,42 @@ class AppRoutes {
       profile: (context) => const ProfilePage(),
 
       // Guide
-      guideDashboard: (context) => const GuideDashboardPage(),
-      tourSchedule: (context) => const TourSchedulePage(),
+      guideDashboard: (context) => const RoleGuard(
+        allowedRoles: [UserRole.guide],
+        pageTitle: 'Guide Dashboard',
+        child: GuideDashboardPage(),
+      ),
+      tourSchedule: (context) => const RoleGuard(
+        allowedRoles: [UserRole.guide],
+        pageTitle: 'Tour Schedule',
+        child: TourSchedulePage(),
+      ),
 
       // Admin
-      adminDashboard: (context) => const AdminDashboardPage(),
-      manageTours: (context) => const ManageToursPage(),
-      editTour: (context) => const EditTourPage(),
+      adminDashboard: (context) => const RoleGuard(
+        allowedRoles: [UserRole.admin],
+        pageTitle: 'Admin Dashboard',
+        child: AdminDashboardPage(),
+      ),
+      manageTours: (context) => const RoleGuard(
+        allowedRoles: [UserRole.admin],
+        pageTitle: 'Manage Tours',
+        child: ManageToursPage(),
+      ),
+      editTour: (context) => const RoleGuard(
+        allowedRoles: [UserRole.admin],
+        pageTitle: 'Edit Tour',
+        child: EditTourPage(),
+      ),
+      manageUsers: (context) => const RoleGuard(
+        allowedRoles: [UserRole.admin],
+        pageTitle: 'Manage Users',
+        child: ManageUsersPage(),
+      ),
+
+      // Chat
+      chatList: (context) => const ChatListPage(),
+      chatDetail: (context) => const ChatDetailPage(),
     };
   }
 }

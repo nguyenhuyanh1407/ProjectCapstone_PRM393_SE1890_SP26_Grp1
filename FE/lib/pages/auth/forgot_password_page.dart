@@ -36,10 +36,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(e.toString()),
-            backgroundColor: Colors.red,
-          ),
+          SnackBar(content: Text(e.toString()), backgroundColor: Colors.red),
         );
       }
     } finally {
@@ -78,7 +75,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.green.withOpacity(0.1),
+            color: Colors.green.withValues(alpha: 0.1),
             shape: BoxShape.circle,
           ),
           child: const Icon(
@@ -100,19 +97,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         Text(
           'Chúng tôi đã gửi link đặt lại mật khẩu đến\n${_emailController.text.trim()}',
           textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 16,
-            color: Colors.grey,
-          ),
+          style: const TextStyle(fontSize: 16, color: Colors.grey),
         ),
         const SizedBox(height: 8),
         const Text(
           'Vui lòng kiểm tra hộp thư (cả thư rác/spam).',
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey,
-          ),
+          style: TextStyle(fontSize: 14, color: Colors.grey),
         ),
         const SizedBox(height: 32),
         SizedBox(
@@ -147,14 +138,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.1),
+              color: AppColors.primary.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
-            child: Icon(
-              Icons.lock_reset,
-              size: 80,
-              color: AppColors.primary,
-            ),
+            child: Icon(Icons.lock_reset, size: 80, color: AppColors.primary),
           ),
           const SizedBox(height: 24),
           const Text(

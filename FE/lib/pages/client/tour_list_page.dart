@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../models/tour.dart';
 import '../../services/mock_data_service.dart';
-import '../../widgets/tour_card.dart';
 import '../../constants/app_colors.dart';
+import '../../widgets/floating_chat_button.dart';
+import '../../widgets/tour_card.dart';
 
 class TourListPage extends StatefulWidget {
   const TourListPage({super.key});
@@ -18,7 +19,12 @@ class _TourListPageState extends State<TourListPage> {
   String _selectedProvince = 'All';
   String _selectedType = 'All';
 
-  final List<String> _provinces = ['All', 'Quảng Ninh', 'Lâm Đồng', 'Kiên Giang'];
+  final List<String> _provinces = [
+    'All',
+    'Quảng Ninh',
+    'Lâm Đồng',
+    'Kiên Giang',
+  ];
   final List<String> _types = ['All', 'Group', 'Family', 'Private'];
 
   @override
@@ -33,10 +39,13 @@ class _TourListPageState extends State<TourListPage> {
       type: _selectedType,
     );
     setState(() {
-      _tours = tours.where((t) => 
-        t.title.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-        t.location.toLowerCase().contains(_searchQuery.toLowerCase())
-      ).toList();
+      _tours = tours
+          .where(
+            (t) =>
+                t.title.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+                t.location.toLowerCase().contains(_searchQuery.toLowerCase()),
+          )
+          .toList();
     });
   }
 
@@ -48,6 +57,7 @@ class _TourListPageState extends State<TourListPage> {
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
       ),
+      floatingActionButton: const FloatingChatButton(),
       body: Column(
         children: [
           Padding(
@@ -60,7 +70,9 @@ class _TourListPageState extends State<TourListPage> {
               decoration: InputDecoration(
                 hintText: 'Search by title or location...',
                 prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
             ),
           ),
@@ -68,7 +80,9 @@ class _TourListPageState extends State<TourListPage> {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                _buildFilterChip('Province', _provinces, _selectedProvince, (val) {
+                _buildFilterChip('Province', _provinces, _selectedProvince, (
+                  val,
+                ) {
                   setState(() => _selectedProvince = val!);
                   _loadTours();
                 }),
@@ -80,41 +94,50 @@ class _TourListPageState extends State<TourListPage> {
             ),
           ),
           Expanded(
-            child: _tours.isEmpty 
-              ? const Center(child: Text('No tours found.'))
-              : ListView.builder(
-                  padding: const EdgeInsets.all(12),
-                  itemCount: _tours.length,
-                  itemBuilder: (context, index) {
-                    final tour = _tours[index];
-                    return GestureDetector(
-                      onTap: () => Navigator.pushNamed(
-                        context, 
-                        '/tour-detail', 
-                        arguments: tour.id
-                      ),
-                      child: TourCard(
-                        title: tour.title,
-                        description: tour.description,
-                        price: tour.basePrice,
-                        imageUrl: tour.images.firstWhere((img) => img.isPrimary).url,
-                      ),
-                    );
-                  },
-                ),
+            child: _tours.isEmpty
+                ? const Center(child: Text('No tours found.'))
+                : ListView.builder(
+                    padding: const EdgeInsets.all(12),
+                    itemCount: _tours.length,
+                    itemBuilder: (context, index) {
+                      final tour = _tours[index];
+                      return GestureDetector(
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          '/tour-detail',
+                          arguments: tour.id,
+                        ),
+                        child: TourCard(
+                          title: tour.title,
+                          description: tour.description,
+                          price: tour.basePrice,
+                          imageUrl: tour.images
+                              .firstWhere((img) => img.isPrimary)
+                              .url,
+                        ),
+                      );
+                    },
+                  ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildFilterChip(String label, List<String> options, String selectedValue, ValueChanged<String?> onChanged) {
+  Widget _buildFilterChip(
+    String label,
+    List<String> options,
+    String selectedValue,
+    ValueChanged<String?> onChanged,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: DropdownButton<String>(
         value: selectedValue,
         onChanged: onChanged,
-        items: options.map((opt) => DropdownMenuItem(value: opt, child: Text(opt))).toList(),
+        items: options
+            .map((opt) => DropdownMenuItem(value: opt, child: Text(opt)))
+            .toList(),
         hint: Text(label),
       ),
     );

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "952594985479",
+    "project_id": "tour-booking-ba302",
+    "storage_bucket": "tour-booking-ba302.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:952594985479:android:ec53c9f602a1bf2d5a70a2",
+        "android_client_info": {
+          "package_name": "com.example.project_capstone_prm393_group_1_se1890"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "952594985479-bpdlrrvhd48k9duui2d6p7pesekuj3qi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUyWzdsn-9PsRcy8rCbTLwY49gQP9W1B0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "952594985479-bpdlrrvhd48k9duui2d6p7pesekuj3qi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

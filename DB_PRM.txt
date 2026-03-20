@@ -1,0 +1,144 @@
+-- 1. Bảng Users: Lưu trữ tài khoản chung
+CREATE TABLE Users (
+    Id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    FullName VARCHAR(100) NOT NULL,
+    Email VARCHAR(150) UNIQUE NOT NULL,
+    PasswordHash TEXT NOT NULL,
+    PhoneNumber VARCHAR(20),
+    AvatarUrl TEXT,
+    Role VARCHAR(20) DEFAULT 'Traveler' CHECK (Role IN ('Admin', 'Guide', 'Traveler')),
+    CreatedAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    IsActive BOOLEAN DEFAULT TRUE
+);
+
+-- 2. Bảng Guides: Thông tin bổ sung cho người dẫn tour
+CREATE TABLE Guides (
+    UserId UUID PRIMARY KEY REFERENCES Users(Id) ON DELETE CASCADE,
+    IdentityCard VARCHAR(50) UNIQUE NOT NULL,
+    Bio TEXT,
+    YearsOfExperience INT DEFAULT 0,
+    VerificationStatus VARCHAR(20) DEFAULT 'Pending' CHECK (VerificationStatus IN ('Pending', 'Approved', 'Rejected')),
+    AvgRating DECIMAL(3,2) DEFAULT 0
+);
+
+-- 3. Bảng Tours
+CREATE TABLE Tours (
+    Id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    GuideId UUID REFERENCES Guides(UserId) ON DELETE SET NULL,
+    Title VARCHAR(255) NOT NULL,
+    Description TEXT,
+    Location VARCHAR(100) NOT NULL, -- Tỉnh/Thành phố
+    BasePrice DECIMAL(18,2) NOT NULL,
+    MaxParticipants INT NOT NULL,
+    TourType VARCHAR(20) CHECK (TourType IN ('Group', 'Family', 'Private')),
+    DurationDays INT NOT NULL,
+    Status VARCHAR(20) DEFAULT 'Pending' CHECK (Status IN ('Draft', 'Pending', 'Published', 'Hidden')),
+    CreatedAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 4. Bảng TourImages: Một tour có nhiều ảnh
+CREATE TABLE TourImages (
+    Id SERIAL PRIMARY KEY,
+    TourId UUID REFERENCES Tours(Id) ON DELETE CASCADE,
+    ImageUrl TEXT NOT NULL,
+    IsPrimary BOOLEAN DEFAULT FALSE
+);
+
+-- 5. Bảng Itineraries: Lịch trình theo ngày (Day 1, Day 2...)
+CREATE TABLE Itineraries (
+    Id SERIAL PRIMARY KEY,
+    TourId UUID REFERENCES Tours(Id) ON DELETE CASCADE,
+    DayNumber INT NOT NULL, 
+    Title VARCHAR(200) NOT NULL,
+    GeneralDescription TEXT
+);
+
+-- 6. Bảng Activities: Chi tiết hoạt động trong ngày
+CREATE TABLE Activities (
+    Id SERIAL PRIMARY KEY,
+    ItineraryId INT REFERENCES Itineraries(Id) ON DELETE CASCADE,
+    StartTime TIME,
+    EndTime TIME,
+    ActivityName VARCHAR(255) NOT NULL,
+    LocationName VARCHAR(255)
+);
+-- 7. Bảng TourAvailability: Quản lý slot trống theo ngày cụ thể
+CREATE TABLE TourAvailability (
+    Id SERIAL PRIMARY KEY,
+    TourId UUID REFERENCES Tours(Id) ON DELETE CASCADE,
+    SpecificDate DATE NOT NULL,
+    RemainingSlots INT NOT NULL,
+    UNIQUE(TourId, SpecificDate)
+);
+
+-- 8. Bảng Bookings
+CREATE TABLE Bookings (
+    Id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    UserId UUID REFERENCES Users(Id),
+    TourId UUID REFERENCES Tours(Id),
+    TravelDate DATE NOT NULL,
+    NumberOfPeople INT NOT NULL,
+    TotalPrice DECIMAL(18,2) NOT NULL,
+    Status VARCHAR(20) DEFAULT 'Pending' CHECK (Status IN ('Pending', 'Confirmed', 'Paid', 'Completed', 'Cancelled', 'Rejected')),
+    CreatedAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 9. Bảng Payments
+CREATE TABLE Payments (
+    Id SERIAL PRIMARY KEY,
+    BookingId UUID REFERENCES Bookings(Id) ON DELETE CASCADE,
+    Amount DECIMAL(18,2) NOT NULL,
+    PaymentMethod VARCHAR(50), -- VNPay, Momo, Stripe
+    TransactionId VARCHAR(100) UNIQUE,
+    Status VARCHAR(20), -- Success, Failed
+    PaidAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 10. Bảng Reviews
+CREATE TABLE Reviews (
+    Id SERIAL PRIMARY KEY,
+    BookingId UUID REFERENCES Bookings(Id) UNIQUE,
+    UserId UUID REFERENCES Users(Id),
+    TourId UUID REFERENCES Tours(Id),
+    Rating INT CHECK (Rating BETWEEN 1 AND 5),
+    Comment TEXT,
+    ReviewImages TEXT, -- Có thể lưu chuỗi JSON hoặc mảng URL
+    CreatedAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 11. Bảng Conversations: Quản lý phòng chat
+CREATE TABLE Conversations (
+    Id SERIAL PRIMARY KEY,
+    ParticipantA_Id UUID REFERENCES Users(Id),
+    ParticipantB_Id UUID REFERENCES Users(Id),
+    LastMessage TEXT,
+    UpdatedAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 12. Bảng Messages: Tin nhắn chi tiết
+CREATE TABLE Messages (
+    Id SERIAL PRIMARY KEY,
+    ConversationId INT REFERENCES Conversations(Id) ON DELETE CASCADE,
+    SenderId UUID REFERENCES Users(Id),
+    Content TEXT NOT NULL,
+    IsRead BOOLEAN DEFAULT FALSE,
+    CreatedAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 13. Bảng GroupTrips: User tự tạo nhóm để rủ bạn bè join
+CREATE TABLE GroupTrips (
+    Id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    CreatorId UUID REFERENCES Users(Id),
+    Name VARCHAR(200) NOT NULL,
+    InviteCode VARCHAR(20) UNIQUE NOT NULL,
+    TargetTourId UUID REFERENCES Tours(Id),
+    CreatedAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 14. Bảng GroupMembers: Danh sách thành viên trong nhóm du lịch
+CREATE TABLE GroupMembers (
+    GroupId UUID REFERENCES GroupTrips(Id) ON DELETE CASCADE,
+    UserId UUID REFERENCES Users(Id),
+    JoinedAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (GroupId, UserId)
+);

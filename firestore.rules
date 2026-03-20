@@ -1,0 +1,135 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if user is admin
+    function isAdmin() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'Admin';
+    }
+    
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // ===========================================
+    // REVIEWS COLLECTION
+    // ===========================================
+    match /reviews/{reviewId} {
+      // Allow read if:
+      // - Review is approved (public)
+      // - User is the owner of the review
+      // - User is admin
+      // - DEVELOPMENT MODE: Allow all reads for testing
+      allow read: if true;
+      
+      // Allow create if:
+      // - User is authenticated OR in development mode
+      // - Status must be 'Pending' for new reviews
+      // Note: In production, add: && request.resource.data.userId == request.auth.uid
+      allow create: if request.resource.data.status == 'Pending';
+      
+      // Allow update if:
+      // - User is admin (for approving/rejecting)
+      // - Only status, adminNote, and updatedAt can be modified by admin
+      // - DEVELOPMENT MODE: Allow all updates for testing
+      allow update: if true;
+      
+      // Allow delete if:
+      // - User is admin
+      // - DEVELOPMENT MODE: Allow all deletes for testing
+      allow delete: if true;
+    }
+    
+    // ===========================================
+    // RATINGS COLLECTION (Aggregate data)
+    // ===========================================
+    match /ratings/{tourId} {
+      // Anyone can read rating summaries
+      allow read: if true;
+      
+      // Allow writes for development/testing
+      // In production, restrict to admin or cloud functions only
+      allow write: if true;
+    }
+    
+    // ===========================================
+    // USERS COLLECTION
+    // ===========================================
+    match /users/{userId} {
+      // Allow read if:
+      // - User is reading their own data
+      // - User is admin
+      allow read: if isAuthenticated() 
+                  && (resource.id == request.auth.uid || isAdmin());
+      
+      // Allow create if:
+      // - User is creating their own profile
+      allow create: if isAuthenticated() 
+                    && request.resource.data.id == request.auth.uid;
+      
+      // Allow update if:
+      // - User is updating their own data
+      // - User is admin
+      allow update: if isAuthenticated() 
+                    && (resource.id == request.auth.uid || isAdmin());
+    }
+    
+    // ===========================================
+    // BOOKINGS COLLECTION
+    // ===========================================
+    match /bookings/{bookingId} {
+      // Allow read if:
+      // - User is the booking owner
+      // - User is admin
+      // - User is the guide of the tour
+      allow read: if isAuthenticated() 
+                  && (resource.data.userId == request.auth.uid 
+                      || isAdmin());
+      
+      // Allow create if:
+      // - User is authenticated
+      // - userId matches authenticated user
+      allow create: if isAuthenticated() 
+                    && request.resource.data.userId == request.auth.uid;
+      
+      // Allow update if:
+      // - User is admin
+      // - User can only update specific fields
+      allow update: if isAdmin();
+    }
+    
+    // ===========================================
+    // TOURS COLLECTION
+    // ===========================================
+    match /tours/{tourId} {
+      // Allow read if:
+      // - Tour is published
+      // - User is admin
+      // - User is the guide of the tour
+      allow read: if resource.data.status == 'Published'
+                  || isAdmin();
+      
+      // Allow create if:
+      // - User is authenticated
+      // Allow update if:
+      // - User is admin
+      // - User is the guide of the tour
+      allow create, update: if isAuthenticated();
+      
+      // Allow delete if:
+      // - User is admin
+      allow delete: if isAdmin();
+    }
+    
+    // ===========================================
+    // ALL OTHER COLLECTIONS
+    // ===========================================
+    match /{document=**} {
+      // Default rule: allow read if authenticated
+      // Deny write by default
+      allow read: if isAuthenticated();
+      allow write: if false;
+    }
+  }
+}

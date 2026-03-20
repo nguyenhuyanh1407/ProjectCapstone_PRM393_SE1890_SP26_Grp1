@@ -33,24 +33,24 @@ class Tour {
 
   factory Tour.fromJson(Map<String, dynamic> json) {
     return Tour(
-      id: json['id'],
-      guideId: json['guideId'],
-      title: json['title'],
-      description: json['description'],
-      location: json['location'],
-      basePrice: (json['basePrice'] as num).toDouble(),
-      maxParticipants: json['maxParticipants'],
-      tourType: json['tourType'],
-      durationDays: json['durationDays'],
-      status: json['status'],
+      id: json['id']?.toString() ?? '',
+      guideId: json['guideId']?.toString(),
+      title: json['title']?.toString() ?? '',
+      description: json['description']?.toString() ?? '',
+      location: json['location']?.toString() ?? '',
+      basePrice: double.tryParse(json['basePrice']?.toString() ?? '0') ?? 0.0,
+      maxParticipants: int.tryParse(json['maxParticipants']?.toString() ?? '0') ?? 0,
+      tourType: json['tourType']?.toString() ?? '',
+      durationDays: int.tryParse(json['durationDays']?.toString() ?? '0') ?? 1,
+      status: json['status']?.toString() ?? 'Draft',
       createdAt: json['createdAt'] != null 
-          ? DateTime.parse(json['createdAt']) 
+          ? DateTime.tryParse(json['createdAt'].toString()) ?? DateTime.now() 
           : DateTime.now(),
       images: (json['images'] as List? ?? [])
-          .map((i) => TourImage.fromJson(i))
+          .map((i) => TourImage.fromJson(Map<String, dynamic>.from(i)))
           .toList(),
       itinerary: (json['itinerary'] as List? ?? [])
-          .map((i) => Itinerary.fromJson(i))
+          .map((i) => Itinerary.fromJson(Map<String, dynamic>.from(i)))
           .toList(),
     );
   }
@@ -82,8 +82,8 @@ class TourImage {
 
   factory TourImage.fromJson(Map<String, dynamic> json) {
     return TourImage(
-      url: json['url'],
-      isPrimary: json['isPrimary'] ?? false,
+      url: json['url']?.toString() ?? '',
+      isPrimary: json['isPrimary'] == true,
     );
   }
 

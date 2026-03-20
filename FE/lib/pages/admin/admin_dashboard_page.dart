@@ -36,6 +36,11 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
         title: const Text('Admin Dashboard'),
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
+        leading: IconButton(
+          icon: const Icon(Icons.home),
+          tooltip: 'Home',
+          onPressed: () => Navigator.pushReplacementNamed(context, '/'),
+        ),
       ),
       floatingActionButton: const FloatingChatButton(),
       body: RefreshIndicator(
@@ -63,7 +68,12 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
 
             final stats = snapshot.data!;
             return ListView(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.only(
+                bottom: 100,
+                left: 16,
+                right: 16,
+                top: 16,
+              ),
               children: [
                 const Text(
                   'System overview',
@@ -74,6 +84,12 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                   spacing: 12,
                   runSpacing: 12,
                   children: [
+                    _StatCard(
+                      title: 'Total Tours',
+                      value: stats.totalTours.toString(),
+                      icon: Icons.map,
+                      color: Colors.blueAccent,
+                    ),
                     _StatCard(
                       title: 'Total users',
                       value: stats.totalUsers.toString(),
@@ -119,16 +135,16 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                 ),
                 const SizedBox(height: 12),
                 _ActionTile(
+                  icon: Icons.map,
+                  title: 'Manage tours',
+                  subtitle: 'Add, edit, or delete tours on Firebase',
+                  onTap: () => Navigator.pushNamed(context, '/manage-tours'),
+                ),
+                _ActionTile(
                   icon: Icons.manage_accounts,
                   title: 'Manage users',
                   subtitle: 'Update role and lock or unlock accounts',
                   onTap: () => Navigator.pushNamed(context, '/manage-users'),
-                ),
-                _ActionTile(
-                  icon: Icons.map,
-                  title: 'Manage tours',
-                  subtitle: 'Existing mock CRUD for the tour module',
-                  onTap: () => Navigator.pushNamed(context, '/manage-tours'),
                 ),
               ],
             );

@@ -55,6 +55,7 @@ class AdminService {
     final conversationsSnapshot = await _firestore
         .collection('conversations')
         .get();
+    final toursSnapshot = await _firestore.collection('tours').get();
 
     var totalGuides = 0;
     var totalTravelers = 0;
@@ -82,6 +83,7 @@ class AdminService {
       activeUsers: activeUsers,
       totalConversations: conversationsSnapshot.size,
       totalMessages: totalMessages,
+      totalTours: toursSnapshot.size,
     );
   }
 }

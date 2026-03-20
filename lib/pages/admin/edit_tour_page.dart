@@ -12,12 +12,12 @@ class EditTourPage extends StatefulWidget {
 class _EditTourPageState extends State<EditTourPage> {
   final _formKey = GlobalKey<FormState>();
   final TourService _dataService = TourService();
-
+  
   late TextEditingController _titleController;
   late TextEditingController _locationController;
   late TextEditingController _priceController;
   late TextEditingController _descriptionController;
-
+  
   Tour? _existingTour;
 
   @override
@@ -27,17 +27,11 @@ class _EditTourPageState extends State<EditTourPage> {
     if (args is Tour) {
       _existingTour = args;
     }
-
+    
     _titleController = TextEditingController(text: _existingTour?.title ?? '');
-    _locationController = TextEditingController(
-      text: _existingTour?.location ?? '',
-    );
-    _priceController = TextEditingController(
-      text: _existingTour?.basePrice.toString() ?? '',
-    );
-    _descriptionController = TextEditingController(
-      text: _existingTour?.description ?? '',
-    );
+    _locationController = TextEditingController(text: _existingTour?.location ?? '');
+    _priceController = TextEditingController(text: _existingTour?.basePrice.toString() ?? '');
+    _descriptionController = TextEditingController(text: _existingTour?.description ?? '');
   }
 
   @override
@@ -52,9 +46,7 @@ class _EditTourPageState extends State<EditTourPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_existingTour == null ? 'Add New Tour' : 'Edit Tour'),
-      ),
+      appBar: AppBar(title: Text(_existingTour == null ? 'Add New Tour' : 'Edit Tour')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -68,9 +60,7 @@ class _EditTourPageState extends State<EditTourPage> {
               ),
               TextFormField(
                 controller: _locationController,
-                decoration: const InputDecoration(
-                  labelText: 'Location (Province)',
-                ),
+                decoration: const InputDecoration(labelText: 'Location (Province)'),
                 validator: (val) => val!.isEmpty ? 'Required' : null,
               ),
               TextFormField(
@@ -110,15 +100,7 @@ class _EditTourPageState extends State<EditTourPage> {
         durationDays: _existingTour?.durationDays ?? 1,
         status: 'Published',
         createdAt: _existingTour?.createdAt ?? DateTime.now(),
-        images:
-            _existingTour?.images ??
-            [
-              TourImage(
-                url:
-                    'https://images.unsplash.com/photo-1528127269322-539005d23819',
-                isPrimary: true,
-              ),
-            ],
+        images: _existingTour?.images ?? [TourImage(url: 'https://images.unsplash.com/photo-1528127269322-539005d23819', isPrimary: true)],
         itinerary: _existingTour?.itinerary,
       );
 
@@ -127,7 +109,7 @@ class _EditTourPageState extends State<EditTourPage> {
       } else {
         await _dataService.updateTour(tour);
       }
-
+      
       if (!mounted) return;
       Navigator.pop(context);
     }

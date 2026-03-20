@@ -36,14 +36,14 @@ class _HomePageState extends State<HomePage> {
             title: Text(
               currentUser == null
                   ? 'Tour Booking App'
-                  : 'Tour Booking App • ${currentUser.role.displayName}',
+                  : 'Tour Booking App â€¢ ${currentUser.role.displayName}',
             ),
             backgroundColor: AppColors.primary,
             foregroundColor: Colors.white,
             actions: [
               IconButton(
                 icon: const Icon(Icons.logout),
-                tooltip: 'Đăng xuất',
+                tooltip: 'ÄÄƒng xuáº¥t',
                 onPressed: () async {
                   await _authService.logout();
                   if (context.mounted) {

@@ -1,0 +1,117 @@
+[
+  {
+    "id": "t1-uuid-1234",
+    "title": "Hạ Long Bay Cruise Adventure",
+    "description": "Explore the majestic limestone karsts and emerald waters of Hạ Long Bay. Enjoy a luxury cruise, kayaking, and cave exploration.",
+    "location": "Quảng Ninh",
+    "basePrice": 250.0,
+    "maxParticipants": 20,
+    "tourType": "Group",
+    "durationDays": 2,
+    "status": "Published",
+    "images": [
+      {
+        "url": "https://picsum.photos/seed/halong1/800/600",
+        "isPrimary": true
+      },
+      {
+        "url": "https://picsum.photos/seed/halong2/800/600",
+        "isPrimary": false
+      }
+    ],
+    "itinerary": [
+      {
+        "dayNumber": 1,
+        "title": "Welcome & Cruise Start",
+        "description": "Arrival at Tuan Chau Harbor and check-in to the cruise.",
+        "activities": [
+          {
+            "startTime": "12:00",
+            "endTime": "13:30",
+            "name": "Lunch on Board",
+            "location": "Ha Long Bay"
+          },
+          {
+            "startTime": "14:00",
+            "endTime": "16:00",
+            "name": "Sửng Sốt Cave Visit",
+            "location": "Bo Hon Island"
+          }
+        ]
+      },
+      {
+        "dayNumber": 2,
+        "title": "Cultural Experience & Departure",
+        "description": "Visit a fishing village and enjoy a final meal before heading back.",
+        "activities": [
+          {
+            "startTime": "08:00",
+            "endTime": "09:30",
+            "name": "Kayaking",
+            "location": "Luon Cave"
+          }
+        ]
+      }
+    ],
+    "reviews": [
+      {
+        "userName": "John Doe",
+        "rating": 5,
+        "comment": "Amazing experience! Highly recommended.",
+        "createdAt": "2024-03-10T10:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "t2-uuid-5678",
+    "title": "Da Lat City Tour - Flowers & Waterfalls",
+    "description": "Escape to the cool highlands of Da Lat. Visit flower gardens, waterfalls, and romantic lakes.",
+    "location": "Lâm Đồng",
+    "basePrice": 80.0,
+    "maxParticipants": 10,
+    "tourType": "Family",
+    "durationDays": 1,
+    "status": "Published",
+    "images": [
+      {
+        "url": "https://picsum.photos/seed/dalat/800/600",
+        "isPrimary": true
+      }
+    ],
+    "itinerary": [
+      {
+        "dayNumber": 1,
+        "title": "Dalat Discovery",
+        "description": "Detailed tour of the city's highlights.",
+        "activities": [
+          {
+            "startTime": "09:00",
+            "endTime": "11:00",
+            "name": "Datanla Waterfalls",
+            "location": "Dalat"
+          }
+        ]
+      }
+    ],
+    "reviews": []
+  },
+  {
+    "id": "t3-uuid-9012",
+    "title": "Phú Quốc Island Retreat",
+    "description": "Sun, sand, and sea on Vietnam's largest island.",
+    "location": "Kiên Giang",
+    "basePrice": 300.0,
+    "maxParticipants": 5,
+    "tourType": "Private",
+    "durationDays": 3,
+    "status": "Published",
+    "images": [
+      {
+        "url": "https://picsum.photos/seed/phuquoc/800/600",
+        "isPrimary": true
+      }
+    ],
+    "itinerary": [],
+    "reviews": []
+  }
+]

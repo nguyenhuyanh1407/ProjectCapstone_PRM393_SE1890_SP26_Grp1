@@ -108,6 +108,15 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     const SizedBox(height: 12),
                     _ActionTile(
+                      icon: Icons.edit,
+                      title: 'Edit Profile',
+                      subtitle: 'Update your personal information',
+                      onTap: () async {
+                        final result = await Navigator.pushNamed(context, '/edit-profile');
+                        if (result == true) setState(() {});
+                      },
+                    ),
+                    _ActionTile(
                       icon: Icons.history,
                       title: 'Booking History',
                       subtitle: 'View your previous booked tours',

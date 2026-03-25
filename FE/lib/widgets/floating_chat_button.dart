@@ -8,12 +8,16 @@ class FloatingChatButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton.extended(
-      onPressed: () => Navigator.pushNamed(context, AppRoutes.chatList),
-      backgroundColor: AppColors.primary,
-      foregroundColor: Colors.white,
-      icon: const Icon(Icons.chat_bubble_outline),
-      label: const Text('Chat'),
+    return SizedBox(
+      width: 44,
+      height: 44,
+      child: FloatingActionButton(
+        onPressed: () => Navigator.pushNamed(context, AppRoutes.chatList),
+        backgroundColor: AppColors.primary,
+        foregroundColor: Colors.white,
+        mini: true,
+        child: const Icon(Icons.chat_bubble_outline, size: 20),
+      ),
     );
   }
 }

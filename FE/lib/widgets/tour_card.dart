@@ -17,45 +17,70 @@ class TourCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.only(bottom: 16),
-      elevation: 4,
+      margin: const EdgeInsets.only(bottom: 10),
+      elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-            child: Image.network(
-              imageUrl,
-              height: 200,
-              width: double.infinity,
-              fit: BoxFit.cover,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Container(
-                  height: 200,
-                  color: Colors.grey[200],
-                  child: const Center(child: CircularProgressIndicator()),
-                );
-              },
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  height: 200,
-                  color: Colors.grey[300],
-                  child: const Icon(Icons.broken_image, size: 50, color: Colors.grey),
-                );
-              },
+      child: SizedBox(
+        height: 110,
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.horizontal(left: Radius.circular(12)),
+              child: Image.network(
+                imageUrl,
+                width: 120,
+                height: 110,
+                fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Container(
+                    width: 120,
+                    height: 110,
+                    color: Colors.grey[200],
+                    child: const Center(
+                        child: CircularProgressIndicator(strokeWidth: 2)),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    width: 120,
+                    height: 110,
+                    color: Colors.grey[300],
+                    child: const Icon(Icons.image, size: 36, color: Colors.grey),
+                  );
+                },
+              ),
             ),
-          ),
-          ListTile(
-            title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-            subtitle: Text(description, maxLines: 2, overflow: TextOverflow.ellipsis),
-            trailing: Text(
-              '\$${price.toStringAsFixed(0)}',
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.green),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(title,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis),
+                    Text(description,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 11, color: Colors.grey.shade600)),
+                    Text(
+                      '\$${price.toStringAsFixed(0)}',
+                      style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green),
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

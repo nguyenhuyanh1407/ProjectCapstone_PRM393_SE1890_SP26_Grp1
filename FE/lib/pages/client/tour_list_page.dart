@@ -24,13 +24,14 @@ class _TourListPageState extends State<TourListPage> {
   String _selectedType = 'All';
 
   int _currentPage = 1;
-  final int _pageSize = 2;
+  final int _pageSize = 4;
 
   final List<String> _provinces = [
     'All',
-    'Quáº£ng Ninh',
-    'LÃ¢m Äá»“ng',
-    'KiÃªn Giang',
+    'Qu\u1EA3ng Ninh',
+    'L\u00E2m \u0110\u1ED3ng',
+    'Ki\u00EAn Giang',
+    '\u0110\u00E0 N\u1EB5ng',
   ];
   final List<String> _types = ['All', 'Group', 'Family', 'Private'];
 
@@ -81,27 +82,13 @@ class _TourListPageState extends State<TourListPage> {
               }
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.logout),
-            tooltip: 'Logout',
-            onPressed: () async {
-              await _authService.logout();
-              if (context.mounted) {
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  '/login',
-                  (route) => false,
-                );
-              }
-            },
-          ),
         ],
       ),
       floatingActionButton: const FloatingChatButton(),
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
             child: TextField(
               onChanged: (value) {
                 _searchQuery = value;
@@ -113,26 +100,30 @@ class _TourListPageState extends State<TourListPage> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
+                contentPadding: const EdgeInsets.symmetric(vertical: 12),
               ),
             ),
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                _buildFilterChip('Province', _provinces, _selectedProvince, (
-                  val,
-                ) {
-                  setState(() => _selectedProvince = val!);
-                  _loadTours();
-                }),
-                _buildFilterChip('Type', _types, _selectedType, (val) {
-                  setState(() => _selectedType = val!);
-                  _loadTours();
-                }),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Row(
+                children: [
+                  _buildFilterChip(
+                      'Province', _provinces, _selectedProvince, (val) {
+                    setState(() => _selectedProvince = val!);
+                    _loadTours();
+                  }),
+                  _buildFilterChip('Type', _types, _selectedType, (val) {
+                    setState(() => _selectedType = val!);
+                    _loadTours();
+                  }),
+                ],
+              ),
             ),
           ),
+          const SizedBox(height: 4),
           Expanded(
             child: _tours.isEmpty
                 ? const Center(child: Text('No tours found.'))
@@ -149,10 +140,10 @@ class _TourListPageState extends State<TourListPage> {
                         Expanded(
                           child: ListView.builder(
                             padding: const EdgeInsets.only(
-                              bottom: 50,
+                              bottom: 60,
                               left: 12,
                               right: 12,
-                              top: 12,
+                              top: 4,
                             ),
                             itemCount: paginatedTours.length,
                             itemBuilder: (context, index) {
@@ -182,26 +173,27 @@ class _TourListPageState extends State<TourListPage> {
                         ),
                         if (_tours.length > _pageSize)
                           Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            padding: const EdgeInsets.symmetric(vertical: 6),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 IconButton(
                                   icon: const Icon(Icons.chevron_left),
                                   onPressed: _currentPage > 1
-                                      ? () => setState(() => _currentPage--)
+                                      ? () =>
+                                          setState(() => _currentPage--)
                                       : null,
                                 ),
                                 Text(
                                   'Page $_currentPage',
                                   style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 IconButton(
                                   icon: const Icon(Icons.chevron_right),
                                   onPressed: endIndex < _tours.length
-                                      ? () => setState(() => _currentPage++)
+                                      ? () =>
+                                          setState(() => _currentPage++)
                                       : null,
                                 ),
                               ],
@@ -223,7 +215,7 @@ class _TourListPageState extends State<TourListPage> {
     ValueChanged<String?> onChanged,
   ) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 6),
       child: DropdownButton<String>(
         value: selectedValue,
         onChanged: onChanged,
@@ -231,6 +223,8 @@ class _TourListPageState extends State<TourListPage> {
             .map((opt) => DropdownMenuItem(value: opt, child: Text(opt)))
             .toList(),
         hint: Text(label),
+        style: const TextStyle(fontSize: 14, color: Colors.black87),
+        underline: const SizedBox(),
       ),
     );
   }

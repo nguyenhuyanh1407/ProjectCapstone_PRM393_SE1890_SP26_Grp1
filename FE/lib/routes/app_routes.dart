@@ -8,6 +8,7 @@ import '../pages/client/tour_detail_page.dart';
 import '../pages/user/booking_page.dart';
 import '../pages/user/booking_history_page.dart';
 import '../pages/user/profile_page.dart';
+import '../pages/user/edit_profile_page.dart';
 import '../pages/guide/guide_dashboard_page.dart';
 import '../pages/guide/tour_schedule_page.dart';
 import '../pages/admin/admin_dashboard_page.dart';
@@ -31,6 +32,7 @@ class AppRoutes {
   static const String booking = '/booking';
   static const String bookingHistory = '/booking-history';
   static const String profile = '/profile';
+  static const String editProfile = '/edit-profile';
 
   static const String guideDashboard = '/guide-dashboard';
   static const String tourSchedule = '/tour-schedule';
@@ -57,6 +59,7 @@ class AppRoutes {
       booking: (context) => const BookingPage(),
       bookingHistory: (context) => const BookingHistoryPage(),
       profile: (context) => const ProfilePage(),
+      editProfile: (context) => const EditProfilePage(),
 
       guideDashboard: (context) => const RoleGuard(
         allowedRoles: [UserRole.guide],

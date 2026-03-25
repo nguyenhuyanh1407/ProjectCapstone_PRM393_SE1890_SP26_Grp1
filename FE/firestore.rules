@@ -75,5 +75,26 @@ service cloud.firestore {
         allow delete: if isAdmin();
       }
     }
+
+    match /tours/{tourId} {
+      allow read: if signedIn();
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /bookings/{bookingId} {
+      allow read: if signedIn()
+        && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if signedIn();
+      allow update: if signedIn()
+        && (resource.data.userId == request.auth.uid || isAdmin());
+      allow delete: if isAdmin();
+    }
+
+    match /trip_sessions/{sessionId} {
+      allow read: if signedIn();
+      allow create: if signedIn();
+      allow update: if signedIn();
+      allow delete: if isAdmin();
+    }
   }
 }

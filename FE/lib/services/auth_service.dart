@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '../models/user.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   // Lấy user hiện tại
   User? get currentUser => _auth.currentUser;
@@ -98,9 +100,60 @@ class AuthService {
   }
 
   // ============================
+  // ĐĂNG NHẬP BẰNG GOOGLE (Google Sign-In)
+  // ============================
+  Future<AppUser> signInWithGoogle() async {
+    try {
+      // 1. Mở popup Google Sign-In
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        throw 'Đăng nhập bằng Google đã bị hủy.';
+      }
+
+      // 2. Lấy token xác thực
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      // 3. Tạo credential cho Firebase
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      // 4. Đăng nhập Firebase bằng credential
+      final UserCredential userCredential =
+          await _auth.signInWithCredential(credential);
+
+      // 5. Tạo/lấy document user trên Firestore
+      final docRef = _firestore
+          .collection('users')
+          .doc(userCredential.user!.uid);
+      final doc = await docRef.get();
+
+      if (doc.exists) {
+        return AppUser.fromJson(doc.data() as Map<String, dynamic>);
+      } else {
+        final appUser = AppUser(
+          id: userCredential.user!.uid,
+          fullName: userCredential.user!.displayName ?? '',
+          email: userCredential.user!.email ?? '',
+          role: UserRole.traveler,
+          createdAt: DateTime.now(),
+          isActive: true,
+        );
+        await docRef.set(appUser.toJson());
+        return appUser;
+      }
+    } on FirebaseAuthException catch (e) {
+      throw _handleAuthError(e);
+    }
+  }
+
+  // ============================
   // ĐĂNG XUẤT (Logout)
   // ============================
   Future<void> logout() async {
+    await _googleSignIn.signOut();
     await _auth.signOut();
   }
 
